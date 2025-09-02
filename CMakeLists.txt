@@ -11,6 +11,7 @@ include_directories(include)
 # Quellcode
 set(SOURCES
     src/glfw-prototype/prototype.cpp
+    deps/glad/src/glad.c
 )
 
 # Executable erzeugen
@@ -20,6 +21,13 @@ add_executable(VanoPrototype ${SOURCES})
 find_package(PkgConfig REQUIRED)
 pkg_search_module(GLFW REQUIRED glfw3)
 
+# Include- und Library-Verzeichnisse setzen
+target_include_directories(VanoPrototype PRIVATE 
+	${GLFW_INCLUDE_DIRS}
+	${CMAKE_SOURCE_DIR}/deps/glad/include
+)
+target_link_directories(VanoPrototype PRIVATE ${GLFW_LIBRARY_DIRS})
+
 # GLFW und weitere Libraries linken
-target_link_libraries(VanoPrototype ${GLFW_LIBRARIES} GL dl pthread)
+target_link_libraries(VanoPrototype ${GLFW_LIBRARIES} "-framework OpenGL")
 

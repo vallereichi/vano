@@ -5,9 +5,16 @@ project(Vano)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# set the runtime output directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+# set up a definition for the shader directory
+add_definitions(-DSHADER_DIR="${CMAKE_SOURCE_DIR}/src/shaders")
+
 # source code
 set(SOURCES
     src/glfw-prototype/prototype.cpp
+    src/util/load_shader.cpp
     deps/glad/src/glad.c
 )
 

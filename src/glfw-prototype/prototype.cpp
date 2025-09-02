@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "linmath.h"
+#include "../util/load_shader.hpp"
 
 
 typedef struct Vertex
@@ -21,27 +22,6 @@ static const Vertex vertices[3] =
 	{{  0.f,  0.6f}, {0.f, 0.f, 1.f}}
 };
 
-
-static const char* vertex_shader_text = 
-"#version 330\n"
-"uniform mat4 MVP;\n"
-"in vec3 vCol;\n"
-"in vec2 vPos;\n"
-"out vec3 color;\n"
-"void main()\n"
-"{\n"
-"	gl_Position = MVP * vec4(vPos, 0.0, 1.0);\n"
-"	color = vCol;\n"
-"}\n";
-
-static const char* fragment_shader_text =
-"#version 330\n"
-"in vec3 color;\n"
-"out vec4 fragment;\n"
-"void main()\n"
-"{\n"
-"	fragment = vec4(color, 1.0);\n"
-"}\n";
 
 
 static void error_callback(int error, const char* description)
@@ -61,8 +41,9 @@ int main()
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
@@ -84,6 +65,13 @@ int main()
 	    return -1;
 	}
 
+	// print out version number and system information
+	std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "GLSL version:   " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+	std::cout << "Renderer:       " << glGetString(GL_RENDERER) << std::endl;
+	std::cout << "Vendor:         " << glGetString(GL_VENDOR) << std::endl;
+
+
 	glfwSwapInterval(1);
 	
 	GLuint vertex_buffer;
@@ -91,18 +79,10 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	const GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex_shader, 1, &vertex_shader_text, NULL);
-	glCompileShader(vertex_shader);
-
-	const GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment_shader, 1, &fragment_shader_text, NULL);
-	glCompileShader(fragment_shader);
-
-	const GLuint program = glCreateProgram();
-	glAttachShader(program, vertex_shader);
-	glAttachShader(program, fragment_shader);
-	glLinkProgram(program);
+	// load shaders and link them into program
+	std::string vertexPath = std::string(SHADER_DIR) + "/vertex.glsl";
+	std::string fragmentPath = std::string(SHADER_DIR) + "/fragment.glsl";
+	GLuint program = createShaderProgram(vertexPath.c_str(), fragmentPath.c_str());
 
 	const GLint mvp_location = glGetUniformLocation(program, "MVP");
 	const GLint vpos_location = glGetAttribLocation(program, "vPos");
@@ -125,6 +105,7 @@ int main()
 		const float ratio = width / (float) height;
 		
 		glViewport(0, 0, width, height);
+		glClearColor(0.2f, 0.2f, 0.2f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		mat4x4 m, p, mvp;

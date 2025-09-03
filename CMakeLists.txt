@@ -15,6 +15,7 @@ add_definitions(-DSHADER_DIR="${CMAKE_SOURCE_DIR}/src/shaders")
 set(SOURCES
     src/glfw-prototype/prototype.cpp
     src/util/load_shader.cpp
+    src/render/render_triangle.cpp
     deps/glad/src/glad.c
 )
 

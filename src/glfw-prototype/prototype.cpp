@@ -47,9 +47,30 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_SAMPLES, 8);
+
+	// get monitor resolution and set window dimensions in pixels
+	bool full_screen = false;
+
+	GLFWmonitor* mon = NULL;
+	int win_width = 800, win_height = 600;
+
+	if (full_screen)
+	{
+		mon = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(mon);
+
+		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+		win_width = mode->width;
+		win_height = mode->height;
+	}
 
 
-	GLFWwindow* window = glfwCreateWindow(640, 480, "Vano-Prototype", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(win_width, win_height, "Vano-Prototype", NULL, NULL);
 	if (!window)
 	{
 		// Window or OpenGL context creation failed
@@ -73,7 +94,7 @@ int main()
 	std::cout << "Renderer:       " << glGetString(GL_RENDERER) << std::endl;
 	std::cout << "Vendor:         " << glGetString(GL_VENDOR) << std::endl;
 
-
+	// set the refresh rate to the refrsh rate of the monitor (0 for immediate swap)
 	glfwSwapInterval(1);
 	
 
@@ -87,12 +108,32 @@ int main()
 	TriangleData triangle1 = setupTriangle(program, triangle1_vertices, 3);
 	TriangleData triangle2 = setupTriangle(program, triangle2_vertices, 3);
 
+	// set up a FPS counter
+	double prev_time = glfwGetTime();
+	double delay_countdown = 0.1;
+
 
 	while (!glfwWindowShouldClose(window))
 	{
+		// update the FPS counter
+		double curr_time = glfwGetTime();
+		double elapsed_time = curr_time - prev_time;
+		prev_time = curr_time;
+		delay_countdown -= elapsed_time;
+		if (delay_countdown <= 0.0 && elapsed_time > 0.0)
+		{
+			double fps = 1.0 / elapsed_time;
+
+			char tmp[256];
+			sprintf(tmp, "FPS %.2lf", fps);
+			glfwSetWindowTitle(window, tmp);
+			delay_countdown = 0.1;
+		}
+
+
 		// Main Render loop
 		int width, height;
-		glfwGetFramebufferSize(window, &width, &height);
+		glfwGetWindowSize(window, &width, &height);
 		
 		glViewport(0, 0, width, height);
 		glClearColor(0.2f, 0.2f, 0.2f, 1.f);

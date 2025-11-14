@@ -1,6 +1,6 @@
 window.MathJax = {
   tex: {
-    inlineMath: {'[+]': [['$', '$']]}
+    inlineMath: {'[+]': [['$', '$']]},
   },
   svg: {
     fontCache: 'global'
@@ -17,24 +17,64 @@ window.MathJax = {
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js"
 
 
-const markdownText = `
-# Latex test
 
-trying out inline math $e^{i\\pi} + 1 = 0$ and display math:
+marked.use({
+  extensions: [
+    {
+      name: 'mathjax-block',
+      level: 'block',
+      start(src) { return src.match(/\$\$/)?.index; },
+      tokenizer(src) {
+        const match = src.match(/^\$\$([\s\S]+?)\$\$/);
+        if (match) {
+          return {
+            type: 'mathjax-block',
+            raw: match[0],
+            text: match[1]
+          };
+        }
+      },
+      renderer(token) {
+        return `$$${token.text}$$`;
+      }
+    }
+  ]
+});
 
-$$
-\\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}
-$$
-
-## Typesetting with MathJax
-
-$$ f(x) = \\sum_{n=0}^\\infty \\frac{f^{(n)}(a)}{n!}(x-a)^n \\cdot \\mathrm{tan}(\\beta)$$
-`;
 
 
 
-const contentDiv = document.getElementById('content');
-contentDiv.innerHTML = marked.parse(markdownText);
+const contentDiv = document.getElementById("content");
+const textarea = document.getElementById("editor");
+
+
+function renderText(str) {
+  contentDiv.innerHTML = marked.parse(str);
+  MathJax.typesetPromise().then (() => {
+    // MathJax finished typesetting
+  }).catch((err) => console.error("MathJax typeset failed: " + err.message));
+}
+
+
+
+textarea.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    const text = textarea.value;
+    renderText(text);
+    textarea.style.display = "none";
+    contentDiv.style.display = "block";
+  }
+})
+
+document.addEventListener("keyup", function (event) {
+  if (event.key === "i" && textarea.style.display === "none") {
+    contentDiv.style.display = "none";
+    textarea.style.display = "block";
+    textarea.focus();
+  }
+})
+
+
 
 
 

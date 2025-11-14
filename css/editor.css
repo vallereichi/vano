@@ -1,0 +1,26 @@
+#content {
+    width: calc(100% - 4rem);
+    margin-top: 3rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    text-align: justify;
+}
+
+#editor {
+    width: calc(100% - 4rem);
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 0 solid rgb(from var(--text-color) r g b / 0.3);
+    border-radius: 8px;
+    height: calc(100% - 4rem);
+    padding: 1rem;
+}
+
+#editor:focus {
+    outline: none;
+    border-color: rgb(from var(--text-color) r g b / 0.3);
+    box-shadow: 0 0 0 rgb(from var(--text-color) r g b / 0.5);
+}

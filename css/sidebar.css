@@ -1,0 +1,78 @@
+nav {
+    background-color: var(--bg-color);
+    width: 10rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: rgb(from var(--text-color) r g b / 0.3);
+    fill: rgb(from var(--text-color) r g b / 0.3);
+
+}
+
+.nav-selection {
+    margin-top: 4rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgb(from var(--text-color) r g b / 0.3);
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 8rem;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;;
+}
+
+nav div {
+    margin-left: 1rem;
+    width: 8rem;
+    display: flex;
+    justify-content: start;
+    margin-top: auto;
+}
+
+nav div svg {
+    fill: inherit;
+    padding: 0.5rem;
+}
+
+nav div svg:hover {
+    color: var(--text-color);
+    fill: var(--text-color);
+    border: 0px solid var(--text-color);
+    border-radius: 5px;
+    background-color: rgb(from var(--text-color) r g b / 0.1);
+    transition: 200ms ease-out;
+    cursor: pointer;
+}
+
+.nav-item {
+    cursor: pointer;
+    padding: 0.5rem;;
+}
+
+.nav-item:hover {
+    color: var(--text-color);
+    fill: var(--text-color);
+    border: 0px solid var(--text-color);
+    border-radius: 5px;
+    background-color: rgb(from var(--text-color) r g b / 0.1);
+    transition: 200ms ease-out;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem;
+    
+}
+
+.nav-item svg {
+    fill: inherit;
+}

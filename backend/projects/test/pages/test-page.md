@@ -24,7 +24,6 @@ This webapplication is heavily inspired by [Notion]("https://www.notion.com/de")
 
 There are almost no limits to the math that can be rendered with this app. With the use of MathJax and marked.js the rendering is performed on the client side. Here are some examples:
 
-$$
   \begin{align}
     \nabla \times \vec{\mathbf{B}}\, - \frac{1}{c}\, \frac{\partial\vec{\mathbf{E}}}{\partial t}
        & = \frac{4\pi}{c}\vec{\mathbf{j}} \\[3pt]
@@ -33,7 +32,6 @@ $$
         & = \vec{\mathbf{0}} \\[3pt]
     \nabla \cdot \vec{\mathbf{B}} & = 0
   \end{align}
-$$
 
 ### Usage
 

@@ -1,19 +1,38 @@
 nav {
     background-color: var(--bg-color);
-    width: 10rem;
+    color: transparent;
+    width: calc(2rem + 24px);
     margin-right: 1rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    color: rgb(from var(--text-color) r g b / 0.3);
     fill: rgb(from var(--text-color) r g b / 0.3);
+    overflow: hidden;
+    transition: all 300ms ease-in-out;
+    
+}
 
+nav.open {
+    color: rgb(from var(--text-color) r g b / 0.3);
+    width: 10rem;
+    transition: all 300ms ease-in-out;
 }
 
 .nav-selection {
     margin-top: 4rem;
     padding-bottom: 1rem;
     border-bottom: 2px solid rgb(from var(--text-color) r g b / 0.3);
+}
+
+.project-selection {
+    opacity: 0;
+    max-height: 0;
+}
+
+.project-selection.open {
+    opacity: 1;
+    max-height: 10rem;
+    transition: 300ms ease-in-out;
 }
 
 nav ul {
@@ -32,12 +51,36 @@ nav div {
     display: flex;
     justify-content: start;
     margin-top: auto;
+    gap: 4rem;
+    transition: all 300ms ease-in-out;
+}
+
+nav div.closed {
+    transform: translateX(calc(-5rem - 24px));
+    transition: all 300ms ease-in-out;
+}
+
+
+#sidebar-toggle svg{
+    transform-origin: center;
+    transform: rotate(180deg);
+    transition: all 300ms ease-in-out;
+}
+
+#sidebar-toggle.closed svg {
+    transform: rotate(0deg);
+    transition: all 300ms ease-in-out;
 }
 
 nav div svg {
     fill: inherit;
     padding: 0.5rem;
 }
+
+/* nav div a:last-child {
+    margin-left: auto;
+    
+} */
 
 nav div svg:hover {
     color: var(--text-color);
@@ -54,13 +97,25 @@ nav div svg:hover {
     padding: 0.5rem;;
 }
 
-.nav-item:hover {
+.nav-item.open:hover {
     color: var(--text-color);
     fill: var(--text-color);
     border: 0px solid var(--text-color);
     border-radius: 5px;
     background-color: rgb(from var(--text-color) r g b / 0.1);
     transition: 200ms ease-out;
+}
+
+.nav-item:hover {
+    fill: var(--text-color);
+}
+
+.selected {
+    color: var(--text-color);
+    fill: var(--text-color);
+    border: 0px solid var(--text-color);
+    border-radius: 5px;
+    background-color: rgb(from var(--text-color) r g b / 0.1);
 }
 
 .nav-item a {
@@ -76,3 +131,64 @@ nav div svg:hover {
 .nav-item svg {
     fill: inherit;
 }
+
+.dropdown {
+    list-style-type: none;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 300ms ease-out , opacity 300ms ease-out;
+}
+
+
+.dropdown.open {
+    max-height: 8rem;
+    /* height: auto; */
+    opacity: 1;
+    transition: max-height 500ms ease-out , opacity 500ms ease-out;
+}
+
+.dropdown li a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem;
+
+}
+
+.dropdown li {
+    padding: 0.25rem;
+    padding-left: 0.5rem;
+}
+
+.dropdown li:hover {
+    fill: var(--text-color);
+    color: var(--text-color);
+    border: 0px solid var(--text-color);
+    border-radius: 5px;
+    background-color: rgb(from var(--text-color) r g b / 0.1);
+    transition: 200ms ease-out;
+}
+
+.dropdown svg {
+    fill: inherit;
+}
+
+/* #add-project a{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+}
+
+#add-project svg {
+    fill: inherit;
+
+} */

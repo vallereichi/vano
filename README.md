@@ -40,5 +40,15 @@ $$
 This is still a production service. Therefore it can only be run on the localhost. You may setup your localhost service anyway you like. The simplest way to host it is to run an http server with python and then visit [http://localhost:8000](http://localhost:8000)
 
 ```
+cd frontend
 python3 -m http.server
+```
+
+And then start the backend which is served by flask
+
+```
+source .venv/bin/activate
+cd backend
+python vano-api.py
+
 ```

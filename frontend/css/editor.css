@@ -6,9 +6,14 @@
     text-align: justify;
 }
 
+#content.hide {
+    margin: 0;
+    display: none;
+}
+
 #editor {
     width: calc(100% - 4rem);
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
     background-color: var(--bg-color);
@@ -17,6 +22,11 @@
     border-radius: 8px;
     height: calc(100% - 4rem);
     padding: 1rem;
+    display: block;
+}
+
+#editor.hide {
+    display: none;
 }
 
 #editor:focus {

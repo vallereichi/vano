@@ -1,4 +1,5 @@
 nav {
+    flex-shrink: 0;
     background-color: var(--bg-color);
     color: transparent;
     width: calc(2rem + 24px);

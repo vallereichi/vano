@@ -51,13 +51,16 @@ let projDropdownShouldOpen = false;
 const sidebarToggle = document.getElementById("sidebar-toggle")
 
 function toggleSidebar() {
+    console.log(projDropdownShouldOpen)
     if (projDropdown.classList.contains("open")) {
         projDropdown.classList.toggle("open");
         projDropdownShouldOpen = true;
     }
-    else if (projDropdownShouldOpen) {
+    else if (projDropdownShouldOpen && !sidebar.classList.contains("open")) {
         projDropdown.classList.toggle("open");
     }
+
+
     sidebar.classList.toggle("open");
     menuBar.classList.toggle("closed");
     sidebarToggle.classList.toggle("closed");

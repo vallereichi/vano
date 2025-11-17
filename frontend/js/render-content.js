@@ -55,21 +55,24 @@ function renderText(str) {
   }).catch((err) => console.error("MathJax typeset failed: " + err.message));
 }
 
+function toggleEditor() {
+  contentDiv.classList.toggle("hide");
+  textarea.classList.toggle("hide");
+}
+
 
 
 textarea.addEventListener("keydown", function (event) {
   if (event.key === "Escape") {
     const text = textarea.value;
     renderText(text);
-    textarea.style.display = "none";
-    contentDiv.style.display = "block";
+    toggleEditor();
   }
 })
 
 document.addEventListener("keyup", function (event) {
-  if (event.key === "i" && textarea.style.display === "none") {
-    contentDiv.style.display = "none";
-    textarea.style.display = "block";
+  if (event.key === "i" && textarea.classList.contains("hide")) {
+    toggleEditor();
     textarea.focus();
   }
 })

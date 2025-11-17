@@ -61,11 +61,10 @@ function toggleSidebar() {
     sidebar.classList.toggle("open");
     menuBar.classList.toggle("closed");
     sidebarToggle.classList.toggle("closed");
-    document.querySelectorAll("li.nav-item").forEach(el => el.classList.toggle("open"))
 }
 
 document.addEventListener("keydown", function (event) {
-    if (event.shiftKey && event.key.toLowerCase() === "s") {
+    if (event.ctrlKey && event.key.toLowerCase() === "b") {
         toggleSidebar();
     }
 });

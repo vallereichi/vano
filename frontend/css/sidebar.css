@@ -39,10 +39,10 @@ nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    width: 8rem;
+    width: calc(100%-2rem);
     margin-left: 1rem;
     display: flex;
-    flex-direction: column;;
+    flex-direction: column;
 }
 
 nav div {
@@ -94,10 +94,10 @@ nav div svg:hover {
 
 .nav-item {
     cursor: pointer;
-    padding: 0.5rem;;
+    padding: 0.5rem;
 }
 
-.nav-item.open:hover {
+.nav-item:hover {
     color: var(--text-color);
     fill: var(--text-color);
     border: 0px solid var(--text-color);
@@ -106,9 +106,6 @@ nav div svg:hover {
     transition: 200ms ease-out;
 }
 
-.nav-item:hover {
-    fill: var(--text-color);
-}
 
 .selected {
     color: var(--text-color);
@@ -125,11 +122,13 @@ nav div svg:hover {
     align-items: center;
     justify-content: start;
     gap: 0.5rem;
+    flex-shrink: 0;
     
 }
 
 .nav-item svg {
     fill: inherit;
+    flex-shrink: 0;
 }
 
 .dropdown {

@@ -15,6 +15,20 @@ html.lightmode {
     }
 }
 
+::-webkit-scrollbar {
+    width: 6px;
+    height: auto;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(from var(--text-color) r g b / 0.3);
+    border-radius: 6px;
+}
+
+
+
+
 body {
     margin: 0;
     padding: 0;
@@ -31,8 +45,9 @@ body {
 
 main {
     flex-grow: 1;
+    height: calc(100vh - 1rem - 2px);
     margin-top: 1rem;
-    padding: 1rem;
+    padding: 0;
     border-top: 2px solid rgb(from var(--text-color) r g b / 0.5);
     border-left: 2px solid rgb(from var(--text-color) r g b / 0.5);
     border-top-left-radius: 15px;

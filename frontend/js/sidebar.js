@@ -1,8 +1,25 @@
 const sidebar = document.getElementById("sidebar")
-const projToggle = document.getElementById("proj-dropdown-toggle");
+const sidebarToggle = document.getElementById("sidebar-toggle")
 const projDropdown = document.getElementById("proj-dropdown");
-const projSelection = document.getElementById("project-selection")
-const menuBar = document.getElementById("menu-bar")
+const pages = document.getElementById("pages");
+
+let sidebarState = {
+        sidebarOpen: document.getElementById("sidebar").classList.contains("open"),
+        projDropdown: document.getElementById("proj-dropdown").classList.contains("closed"),
+    };
+
+function updateSidebarState(sidebarState)  {
+    sidebarState = {
+        sidebarOpen: document.getElementById("sidebar").classList.contains("open"),
+        projDropdown: projDropdownShouldOpen,
+    };
+
+    return sidebarState;
+}
+
+
+
+
 
 async function loadProjects() {
     try {
@@ -15,13 +32,17 @@ async function loadProjects() {
             const li = document.createElement("li");
             const a = document.createElement("a");
 
+            li.classList.add("nav-item");
+            li.style.padding = "0.5rem";
+
+
             a.textContent = project;
             a.href = "#";
             a.id = project;
             
             li.addEventListener("click", (e) => {
                 e.preventDefault();
-                projSelection.classList.add("open")
+                document.getElementById("content-selection").classList.add("open")
                 projDropdown.querySelectorAll("li.selected").forEach(el => el.classList.remove("selected"));
                 li.classList.add("selected")
             })
@@ -36,35 +57,47 @@ async function loadProjects() {
 }
 
 
+
+
+function toggleSidebar() {
+    if (sidebarState.sidebarOpen) {
+        sidebarState.projDropdown = projDropdown.classList.contains("open")
+        projDropdown.classList.remove("open");
+    }
+    else if (sidebarState.projDropdown) {
+        projDropdown.classList.add("open");
+    }
+    
+    sidebar.classList.toggle("open");
+    sidebarToggle.classList.toggle("closed");
+    document.getElementById("menu-bar").classList.toggle("closed");
+    sidebarState = updateSidebarState();
+}
+
+
+
+
+
+
+// Event Listeners
+
+
 document.addEventListener("DOMContentLoaded", () => {
     loadProjects();
 });
 
 
 
-projToggle.addEventListener("click", (e) => {
+document.getElementById("proj-dropdown-toggle").addEventListener("click", (e) => {
     e.preventDefault();
-    projDropdown.classList.toggle("open");
+    if (sidebarState.sidebarOpen) {
+        projDropdown.classList.toggle("open");
+        projDropdownShouldOpen = projDropdown.classList.contains("open");
+        sidebarState = updateSidebarState();
+    }
 });
 
-let projDropdownShouldOpen = false;
-const sidebarToggle = document.getElementById("sidebar-toggle")
 
-function toggleSidebar() {
-    console.log(projDropdownShouldOpen)
-    if (projDropdown.classList.contains("open")) {
-        projDropdown.classList.toggle("open");
-        projDropdownShouldOpen = true;
-    }
-    else if (projDropdownShouldOpen && !sidebar.classList.contains("open")) {
-        projDropdown.classList.toggle("open");
-    }
-
-
-    sidebar.classList.toggle("open");
-    menuBar.classList.toggle("closed");
-    sidebarToggle.classList.toggle("closed");
-}
 
 document.addEventListener("keydown", function (event) {
     if (event.ctrlKey && event.key.toLowerCase() === "b") {
@@ -73,3 +106,8 @@ document.addEventListener("keydown", function (event) {
 });
 
 sidebarToggle.addEventListener("click", toggleSidebar);
+
+pages.addEventListener("click", function () {
+    document.getElementById("content-selection").querySelectorAll("li.selected").forEach(el => el.classList.remove("selected"));
+    pages.classList.add("selected");
+});

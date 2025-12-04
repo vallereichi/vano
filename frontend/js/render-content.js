@@ -46,6 +46,7 @@ marked.use({
 
 const contentDiv = document.getElementById("content");
 const textarea = document.getElementById("editor");
+const canvas = document.getElementById("canvas");
 
 
 function renderText(str) {
@@ -58,6 +59,19 @@ function renderText(str) {
 function toggleEditor() {
   contentDiv.classList.toggle("hide");
   textarea.classList.toggle("hide");
+}
+
+function toggleCanvas() {
+  if (!canvas.classList.contains("hide")) {
+    contentDiv.classList.toggle("hide")
+  }
+  else if (!contentDiv.classList.contains("hide")) {
+    contentDiv.classList.toggle("hide")
+  }
+  else if (!textarea.classList.contains("hide")) {
+    textarea.classList.toggle("hide")
+  }
+  canvas.classList.toggle("hide")
 }
 
 
@@ -76,6 +90,9 @@ document.addEventListener("keyup", function (event) {
     textarea.focus();
   }
 })
+
+const canvasBtn = document.getElementById("canvasBtn")
+canvasBtn.addEventListener("click", toggleCanvas)
 
 
 

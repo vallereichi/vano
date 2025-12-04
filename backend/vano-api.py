@@ -1,38 +1,39 @@
-from flask import Flask, jsonify, send_file
+from flask import Flask, jsonify, request
 from flask_cors import CORS
-import os
+from database import init_database, create_project
+
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-PROJECT_ROOT = './projects'
+init_database()
 
-@app.route('/api/projects')
-def list_projects():
-    try:
-        projects = [d for d in os.listdir(PROJECT_ROOT) if os.path.isdir(os.path.join(PROJECT_ROOT, d))]
-        return jsonify(projects)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/create-project", methods=['POST'])
+def create_project_route():
+    # retrieve the project name from the frontend
+    data = request.get_json()
+    project_name = data.get("project_name")
+
+    if not project_name:
+        return jsonify({"error": "Project name is required"}), 400
     
-@app.route('/api/projects/<procect_name>/pages')
-def list_pages(procect_name):
-    try:
-        project_path = os.path.join(PROJECT_ROOT, procect_name)
-        pages = [f for f in os.listdir(project_path + '/pages') if os.path.isfile(os.path.join(project_path, 'pages', f))]
-        return jsonify(pages)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    
-@app.route('/api/projects/<project_name>/pages/<page_name>')
-def get_page_content(project_name, page_name):
-    try:
-        page_path = os.path.join(PROJECT_ROOT, project_name, "pages", page_name)
-        with open(page_path, 'r') as file:
-            content = file.read()
-        return jsonify({"content": content})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    # create new project
+    new_project_id = create_project(project_name)
+
+    # return response
+    if new_project_id:
+        return jsonify({
+            "message": "Project created successfully",
+            "project_id": new_project_id,
+            "project_name": project_name
+        }), 201
+    else:
+        return jsonify({"error": "Failed to create project"}), 500  
+
+
+
+
     
 
 if __name__ == '__main__':

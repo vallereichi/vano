@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/canvas.css">
 
     <script async type="module" src="js/render-content.js"></script>
+    <script defer src="js/projects.js"></script>
     <script defer src="js/sidebar.js"></script>
     <script defer src="js/handle-state.js"></script>
 
@@ -16,7 +18,7 @@
 <body>
     <nav id="sidebar" class="open">
         <ul class="nav-selection">
-            <li class="nav-item"><a href="#">
+            <li class="nav-item" id="canvasBtn"><a href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M760-600v-160H600v-80h240v240h-80ZM120-120v-240h80v160h160v80H120Zm0-320v-80h80v80h-80Zm0-160v-80h80v80h-80Zm0-160v-80h80v80h-80Zm160 0v-80h80v80h-80Zm160 640v-80h80v80h-80Zm0-640v-80h80v80h-80Zm160 640v-80h80v80h-80Zm160 0v-80h80v80h-80Zm0-160v-80h80v80h-80Zm0-160v-80h80v80h-80Z"/></svg>
                 Canvas
             </a></li>
@@ -59,6 +61,7 @@
         <!-- Content goes here. Everything else is just the base layout and should remain the same for all pages -->
         <textarea id="editor"></textarea>
         <div id="content" class="hide"></div>   
+        <div id="canvas" class="hide"></div>
     </main>
 </body>
 </html>

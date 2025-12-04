@@ -1,6 +1,8 @@
 build/
 bin/
 .venv/
+database.db
 svg/
 .vs/
 .DS_Store
+__pycache__

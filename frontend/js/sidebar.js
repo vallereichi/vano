@@ -82,9 +82,9 @@ function toggleSidebar() {
 // Event Listeners
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadProjects();
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//     loadProjects();
+// });
 
 
 

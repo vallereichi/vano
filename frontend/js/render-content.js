@@ -47,6 +47,7 @@ marked.use({
 const contentDiv = document.getElementById("content");
 const textarea = document.getElementById("editor");
 const canvas = document.getElementById("canvas");
+const canvasBtn = document.getElementById("canvasBtn")
 
 
 function renderText(str) {
@@ -72,6 +73,7 @@ function toggleCanvas() {
     textarea.classList.toggle("hide")
   }
   canvas.classList.toggle("hide")
+  canvasBtn.classList.toggle("selected")
 }
 
 
@@ -85,13 +87,12 @@ textarea.addEventListener("keydown", function (event) {
 })
 
 document.addEventListener("keyup", function (event) {
-  if (event.key === "i" && textarea.classList.contains("hide")) {
+  if (event.key === "i" && textarea.classList.contains("hide") && canvas.classList.contains("hide")) {
     toggleEditor();
     textarea.focus();
   }
 })
 
-const canvasBtn = document.getElementById("canvasBtn")
 canvasBtn.addEventListener("click", toggleCanvas)
 
 

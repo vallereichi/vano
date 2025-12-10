@@ -25,5 +25,38 @@ async function handleCreateProject(event) {
     }
 };
 
+function openProjectCreationForm() {
+    const backdrop = document.createElement("div");
+    backdrop.classList.add("backdrop");
+
+
+    const form = document.createElement("form");
+    form.classList.add("input-form");
+    form.innerHTML = `
+        <label for="input-proj-name">Create a new project</label>
+        <div>
+            <input type="text" name="input-proj-name" id="input-proj-name" placeholder="insert the project name" required>
+            <button type="submit" id="create-proj-btn">Create</button>
+        </div>
+        `;
+
+    backdrop.appendChild(form);
+    document.body.appendChild(backdrop);
+
+    backdrop.addEventListener("click", backdrop.remove);
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") backdrop.remove();
+    })
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        handleCreateProject();
+        backdrop.remove();
+    });
+}
+
+
+
 const addProjBtn = document.getElementById("add-project");
-addProjBtn.addEventListener("click", handleCreateProject);
+addProjBtn.addEventListener("click", openProjectCreationForm);
+

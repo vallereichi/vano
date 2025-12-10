@@ -6,6 +6,7 @@
 html.lightmode {
     --text-color: #0A0A0A ;
     --bg-color: #E3E3E3;
+    --accent-color: rgb(from var(--text-color) r g b / 0.5)
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,7 +28,9 @@ html.lightmode {
 }
 
 
-
+:focus {
+    outline: none;
+}
 
 body {
     margin: 0;
@@ -54,4 +57,14 @@ main {
     background-color: var(--bg-color);
     box-shadow: 0 0 1rem 1px rgb(from var(--text-color) r g b / 0.5);
     overflow: auto;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0,0.1);
 }

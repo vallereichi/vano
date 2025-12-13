@@ -2,6 +2,7 @@ build/
 bin/
 .venv/
 database.db
+sql-cheatsheet.sql
 svg/
 .vs/
 .DS_Store

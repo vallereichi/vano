@@ -1,0 +1,10 @@
+a {
+    text-decoration: none;
+    font: inherit;
+    color: inherit;
+}
+
+svg {
+    fill: inherit;
+    flex-shrink: 0;
+}

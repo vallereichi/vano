@@ -61,3 +61,9 @@ projectBtn.addEventListener("mouseenter", () => {
 projectBtn.addEventListener("mouseleave", () => {
     document.getElementById("add-project").style.display = "none";
 })
+
+document.getElementById("add-project").addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    window.location.href = "/projects/add";
+})

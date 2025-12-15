@@ -66,5 +66,5 @@ button {
 button:hover {
     background-color: var(--accent-color);
     color: var(--bg-color);
-    transition: 300ms ease-out;
+    transition: 200ms ease-out;
 }

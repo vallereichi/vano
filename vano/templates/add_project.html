@@ -1,0 +1,10 @@
+{% extends "projects.html" %}
+{% block add_project %}
+<form action="">
+    <label for="input-proj-name">Create a new project</label>
+    <div>
+        <input type="text" name="input-proj-name" id="input-proj-name" placeholder="insert the project name" required>
+        <button type="submit" id="create-proj-btn">Create</button>
+    </div>
+</form>
+{% endblock %}

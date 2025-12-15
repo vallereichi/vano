@@ -8,3 +8,65 @@ svg {
     fill: inherit;
     flex-shrink: 0;
 }
+
+form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 15px;
+    box-shadow: 0 0 0.25rem var(--accent-color);
+}
+
+form:not(:valid) button:hover {
+    background-color: rgb(from var(--text-color) r g b / 0.3);
+    color: var(--accent-color);
+    cursor: not-allowed;
+}
+
+form:valid button {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transition: 200ms ease-out;
+}
+
+
+label {
+    font: inherit;
+    font-weight: bold;
+    font-size: 1.25rem;
+
+}
+
+input[type="text"] {
+    width: 20vw;
+    padding: 0.5rem;
+    font: inherit;
+    border: 2px solid var(--accent-color);
+    border-radius: 15px;
+    background-color: var(--bg-color);
+    box-shadow: inset 0 0 0.25rem var(--accent-color);
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font: inherit;
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--accent-color);
+    background-color: rgb(from var(--text-color) r g b / 0.3);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transition: 200ms ease-out;
+}

@@ -1,4 +1,5 @@
 build/
+instance/
 bin/
 .venv/
 database.db

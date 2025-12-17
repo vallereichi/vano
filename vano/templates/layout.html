@@ -23,6 +23,9 @@
                 Projects
                 <svg class="add-button" id="add-project" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#E3E3E3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
             </a></li>
+            <ul id="project-list">
+                {% block project_list %}{% endblock %}
+            </ul>
         </ul>
         <ul>
             <li><a href="#" class="nav-item">
@@ -51,5 +54,6 @@
         {% block content %}{% endblock %}
     </main>
     <div id="sidebar-resizer"></div>
+    {% block menus %}{% endblock %}
 </body>
 </html>

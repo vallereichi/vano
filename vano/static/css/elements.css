@@ -70,3 +70,7 @@ button:hover {
     color: var(--bg-color);
     transition: 200ms ease-out;
 }
+
+li {
+    position: relative;
+}

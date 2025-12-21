@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import request, url_for, render_template, redirect
+from flask import request, url_for, render_template, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer, String, Text, DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -11,6 +11,7 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 
 app = Flask(__name__)
+app.secret_key = b"SuperSecret"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
 db.init_app(app)
@@ -37,12 +38,29 @@ def list_projects():
 
 @app.route("/projects/add", methods=["GET", "POST"])
 def add_project():
+    projects = db.session.execute(db.select(Project).order_by(Project.created_at)).scalars()
+
     if request.method == "POST":
         project = Project(project_name = request.form["input-proj-name"])
-        db.session.add(project)
+
+        try:
+            db.session.add(project)
+            db.session.commit()
+            return redirect(url_for("list_projects"))
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error adding project: {e}", "error")
+
+    return render_template("add_project.html", projects=projects)
+
+@app.route("/projects/<int:project_id>/delete")
+def delete_project(project_id):
+    project = db.session.get(Project, project_id)
+    if project:
+        db.session.delete(project)
         db.session.commit()
         return redirect(url_for("list_projects"))
-    return render_template("add_project.html")
+    return "Project not found", 404
 
 
 if __name__ == "__main__":

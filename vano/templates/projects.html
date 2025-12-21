@@ -1,22 +1,19 @@
 {% extends "layout.html" %}
 {% block project_list %}
-{% for project in projects %}
-<li>
-    <a href="/project/{{ project.project_id }}" class="nav-item">
-        {{ project.project_name }}
-        <svg class="options-button" data-project-id="{{ project.project_id }}" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#E3E3E3"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
-    </a>
-</li>
-    
-{% endfor %}
+    {% for project in projects %}
+    <li>
+        <a href="/project/{{ project.project_id }}" class="nav-item">
+            {{ project.project_name }}
+            <svg class="options-button" data-project-id="{{ project.project_id }}" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#E3E3E3"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
+        </a>
+    </li>
+    {% endfor %}
 {% endblock%}
 {% block content %}
-{% block add_project %}{% endblock %}
-
-
+    {% block add_project %}{% endblock %}
 {% endblock %}
 {% block menus %}
-    <ul class="menu" id="project-menu">
-        <li><a href="projects/delete" class="nav-item">Delete</a></li>
+    <ul class="menu hide" id="project-menu">
+        <li><a href="#" class="nav-item" id="delete-project">Delete</a></li>
     </ul>
 {% endblock %}

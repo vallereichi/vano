@@ -1,4 +1,6 @@
 {% extends "projects.html" %}
+
+
 {% block add_project %}
 <form action="" method="post">
     <label for="input-proj-name">Create a new project</label>
@@ -7,4 +9,8 @@
         <button type="submit" id="create-proj-btn">Create</button>
     </div>
 </form>
+{% endblock %}
+
+{% block project_list %}
+    {{ super() }}
 {% endblock %}

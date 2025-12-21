@@ -7,7 +7,7 @@ let sidebarWidth;
 let sidebarState = {
     open: true,
     width: sidebarWidth,
-    projectList: false,
+    projectList: true,
 }
 
 resizer.addEventListener("mousedown", (event) => {
@@ -24,7 +24,7 @@ document.addEventListener("mousemove", (event) => {
     sidebarWidth = event.clientX;
     sidebarWidth = Math.max(140, Math.min(sidebarWidth, 600));
 
-    document.documentElement.style.setProperty("--sidebar-width", `calc(${sidebarWidth}px - 2rem)`);
+    document.documentElement.style.setProperty("--sidebar-width", `calc(${sidebarWidth}px - 1rem)`);
 });
 
 document.addEventListener("mouseup", () => {
@@ -34,7 +34,7 @@ document.addEventListener("mouseup", () => {
 
 function toggleSidebar() {
     if (sidebarState.open) {
-        sidebarWidth = `calc(1rem + 24px)`;
+        sidebarWidth = `calc(2rem + 24px)`;
         document.getElementById("settings-button").style.display = "none";
         resizer.style.display = "none";
         if (sidebarState.projectList) projectList.classList.toggle("hide");
@@ -67,7 +67,7 @@ projectBtn.addEventListener("mouseleave", () => {
 })
 
 projectBtn.addEventListener("click", (event) => {
-    if (sidebarState.open && !projectList.classList.contains("hide")) {
+    if (sidebarState.open && window.location.pathname == "/projects") {
         event.preventDefault();
         projectList.classList.toggle("hide");
         if (sidebarState.projectList) sidebarState.projectList = false;
@@ -85,28 +85,30 @@ const projectMenu = document.getElementById("project-menu");
 let activeProjectId = null;
 
 document.addEventListener("click", (event) => {
-    console.log("activate")
     const button = event.target.closest(".options-button");
-
-    if (!projectMenu) return;
-
-    if (!button && !projectMenu.contains(event.target)) {
-        projectMenu.hidden = true;
-        return;
-    }
-
-    if (!button) return;
-
+    
+    if (!projectMenu || !button) return;
+    
+    projectMenu.classList.remove("hide");
+    projectMenu.addEventListener("mouseleave", () => {
+        projectMenu.classList.add("hide");
+    })
+    
     event.preventDefault();
     event.stopPropagation();
-
+    
     activeProjectId = button.dataset.projectId;
 
     const rect = button.getBoundingClientRect();
 
-    projectMenu.style.top = `${rect.top}px`;
-    projectMenu.style.left = `${rect.left + 8}px`;
+    projectMenu.style.top = `${rect.top - 10}px`;
+    projectMenu.style.left = `${rect.left + 0}px`;
 
     projectMenu.hidden = false;
+})
+
+document.getElementById("delete-project").addEventListener("click", (event) => {
+    event.preventDefault();
+    if (activeProjectId) window.location.href = `/projects/${activeProjectId}/delete`;
 })
 

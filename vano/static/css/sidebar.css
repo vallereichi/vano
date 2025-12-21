@@ -3,10 +3,10 @@
     height: calc(100% - 2rem);
     position: absolute;
     top: 2rem;
-    left: calc(var(--sidebar-width, 10rem) + 2rem - 4px);
+    left: calc(var(--sidebar-width, 10rem) + 1rem - 4px);
     cursor: ew-resize;
     touch-action: none;
-    z-index: 99999;
+    z-index: 999;
 }
 
 
@@ -42,11 +42,8 @@ nav ul {
 }
 
 #sidebar-options {
-    /* position: fixed;
-    left: 1rem;
-    top: 93%; */
     margin-top: auto;
-    width: var(--sidebar-width, 10rem);
+    width: calc(var(--sidebar-width, 10rem) - 1rem);
     fill: rgb(from var(--text-color) r g b / 0.3);
     display: flex;
     justify-content: space-between;
@@ -136,4 +133,8 @@ nav ul {
 #project-menu {
     position: fixed;
 
+}
+
+#project-menu.hide {
+    display: none;
 }

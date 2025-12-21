@@ -12,6 +12,15 @@
     <script defer src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
 </head>
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for category, message in messages %}
+                    <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <nav>
         <ul style="border-bottom: 2px solid rgb(from var(--text-color) r g b / 0.3); padding-bottom: 0.25rem;">
             <li><a href="#" class="nav-item">

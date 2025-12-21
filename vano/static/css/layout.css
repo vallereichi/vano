@@ -37,9 +37,9 @@ nav {
 
 main {
     height: calc(100% - 2rem - 2px);
-    width: calc(100% - var(--sidebar-width, 10rem) - 2rem - 2px);
+    width: calc(100% - var(--sidebar-width, 10rem) - 1rem - 2px);
     position: absolute;
-    left: calc(var(--sidebar-width, 10rem) + 2rem);
+    left: calc(var(--sidebar-width, 10rem) + 1rem);
     top: 2rem;
     background-color: inherit;
     color: inherit;
@@ -48,5 +48,28 @@ main {
     border-top-left-radius: 15px;
     box-shadow: 0 0 10px var(--accent-color);
     z-index: 10;
+}
+
+
+.flashes {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0 solid transparent;
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    list-style-type: none;
+    z-index: 99999;
+    margin: 0;
+    padding: 0;
+}
+
+.flash.error {
+    background-color: rgb(from red r g b / 0.4);
+    color: var(--text-color);
+    padding: 0.25rem;
+    border: 2px solid red;
+    border-radius: 8px;
 }
 

@@ -62,6 +62,14 @@ def delete_project(project_id):
         return redirect(url_for("list_projects"))
     return "Project not found", 404
 
+@app.route("/projects/<int:project_id>")
+def view_project(project_id):
+    project = db.session.get(Project, project_id)
+    if project:
+        projects = db.session.execute(db.select(Project).order_by(Project.created_at)).scalars()
+        return render_template("project_id.html", project=project, projects=projects)
+    return "Project not found", 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)
